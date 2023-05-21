@@ -32,3 +32,10 @@ const languageOptions = computed(() => {
 <template>
     <Dropdown v-model="mainStore.selectedLanguage" :options="languageOptions" optionLabel="text" optionValue="value" />
 </template>
+
+<style scoped>
+.p-dropdown {
+    background: transparent;
+    border: none;
+}
+</style>

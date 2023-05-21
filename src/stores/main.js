@@ -4,6 +4,7 @@ export const useMainStore = defineStore('main', {
     state: () => ({
         languages: {},
         selectedLanguage: 'de',
+        selectedPokemon: null,
     }),
 
     getters: {

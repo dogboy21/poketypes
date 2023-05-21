@@ -39,5 +39,14 @@ watch(responseItems, (newValue, oldValue) => {
 </script>
 
 <template>
-    <AutoComplete v-model="searchValue" :suggestions="suggestionItems" optionLabel="name" @complete="onSearch" @change="onChange" />
+    <AutoComplete v-model="searchValue" :suggestions="suggestionItems" optionLabel="name" @complete="onSearch" @change="onChange" placeholder="Search a Pokemon"
+        inputClass="appearance-none border-none outline-none bg-transparent outline-none text-gray-500" />
 </template>
+
+<style>
+.p-autocomplete-input.p-inputtext:focus {
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+}
+</style>
