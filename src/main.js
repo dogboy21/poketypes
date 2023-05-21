@@ -37,11 +37,15 @@ import Dropdown from 'primevue/dropdown'
 import AutoComplete from 'primevue/autocomplete'
 import Message from 'primevue/message'
 import Tag from 'primevue/tag'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
 
 app.component('Dropdown', Dropdown)
 app.component('AutoComplete', AutoComplete)
 app.component('Message', Message)
 app.component('Tag', Tag)
+app.component('DataTable', DataTable)
+app.component('Column', Column)
 
 import Ripple from 'primevue/ripple'
 import Styleclass from 'primevue/styleclass'

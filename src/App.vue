@@ -28,7 +28,10 @@ const { selectedPokemon } = storeToRefs(mainStore)
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
 body {
     margin: 0;
+    font-family: 'Raleway', sans-serif;
 }
 </style>

@@ -29,15 +29,9 @@ const groupBy = (arr, keyFn) => {
     }, initialValue);
 }
 
-const reducedEfficacies = computed(() => {
+const reducedWeaknesses = computed(() => {
     const rawEfficacies = pokemonInfo.value?.pokemon_v2_pokemon?.[0]?.pokemon_v2_pokemontypes
         .flatMap(type => type.pokemon_v2_type.pokemonV2TypeefficaciesByTargetTypeId)
-        .map(efficacy => {
-            return {
-                ...efficacy,
-                description: `${efficacy.pokemon_v2_type.name} -> ${efficacy.pokemonV2TypeByTargetTypeId.name}`
-            }
-        })
 
     const groupedEfficacies = groupBy(rawEfficacies, efficacy => efficacy.pokemon_v2_type.name)
 
@@ -50,11 +44,26 @@ const reducedEfficacies = computed(() => {
 
         efficacies.push({
             damageFactor: finalDamageFactor * 100,
-            source: value[0].pokemon_v2_type.pokemon_v2_typenames[0].name
+            source: value[0].pokemon_v2_type
         })
     }
 
-    return efficacies.sort((a, b) => b.damageFactor - a.damageFactor)
+    return efficacies
+})
+
+const weaknesses = computed(() => {
+    const groupedByDamage = groupBy(reducedWeaknesses.value, weakness => weakness.damageFactor)
+    const sortFn = (a, b) => a.pokemon_v2_typenames[0].name.localeCompare(b.pokemon_v2_typenames[0].name)
+    return [
+        {
+            x0: groupedByDamage?.[0]?.map(weakness => weakness.source)?.sort(sortFn) || [],
+            xp25: groupedByDamage?.[25]?.map(weakness => weakness.source)?.sort(sortFn) || [],
+            xp5: groupedByDamage?.[50]?.map(weakness => weakness.source)?.sort(sortFn) || [],
+            x1: groupedByDamage?.[100]?.map(weakness => weakness.source)?.sort(sortFn) || [],
+            x2: groupedByDamage?.[200]?.map(weakness => weakness.source)?.sort(sortFn) || [],
+            x4: groupedByDamage?.[400]?.map(weakness => weakness.source)?.sort(sortFn) || [],
+        }
+    ]
 })
 </script>
 
@@ -75,12 +84,53 @@ const reducedEfficacies = computed(() => {
         </div>
         
         <div class="surface-border">
-            <h2>Efficacies</h2>
-            <ul>
-                <li v-for="(efficacy, index) in reducedEfficacies" :key="index">
-                    {{ efficacy.source }} - {{ efficacy.damageFactor }}%
-                </li>
-            </ul>
+            <div>
+                <h2>Weaknesses</h2>
+                <DataTable :value="weaknesses">
+                    <Column field="x0" header="0%">
+                        <template #body="slotProps">
+                            <div class="mb-1" v-for="pokeType in slotProps.data.x0" :key="'poketypeWeakness' + pokeType.id">
+                                <TypeTag :pokeType="pokeType"/>
+                            </div>
+                        </template>
+                    </Column>
+                    <Column field="xp25" header="25%">
+                        <template #body="slotProps">
+                            <div class="mb-1" v-for="pokeType in slotProps.data.xp25" :key="'poketypeWeakness' + pokeType.id">
+                                <TypeTag :pokeType="pokeType"/>
+                            </div>
+                        </template>
+                    </Column>
+                    <Column field="xp5" header="50%">
+                        <template #body="slotProps">
+                            <div class="mb-1" v-for="pokeType in slotProps.data.xp5" :key="'poketypeWeakness' + pokeType.id">
+                                <TypeTag :pokeType="pokeType"/>
+                            </div>
+                        </template>
+                    </Column>
+                    <Column field="x1" header="100%">
+                        <template #body="slotProps">
+                            <div class="mb-1" v-for="pokeType in slotProps.data.x1" :key="'poketypeWeakness' + pokeType.id">
+                                <TypeTag :pokeType="pokeType"/>
+                            </div>
+                        </template>
+                    </Column>
+                    <Column field="x2" header="200%">
+                        <template #body="slotProps">
+                            <div class="mb-1" v-for="pokeType in slotProps.data.x2" :key="'poketypeWeakness' + pokeType.id">
+                                <TypeTag :pokeType="pokeType"/>
+                            </div>
+                        </template>
+                    </Column>
+                    <Column field="x4" header="400%">
+                        <template #body="slotProps">
+                            <div class="mb-1" v-for="pokeType in slotProps.data.x4" :key="'poketypeWeakness' + pokeType.id">
+                                <TypeTag :pokeType="pokeType"/>
+                            </div>
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
         </div>
     </div>  
 </template>

@@ -24,10 +24,10 @@ const typeColors = {
 </script>
 
 <template>
-    <Tag :style="{ background: typeColors[pokeType.pokemon_v2_type.name] }" class="mr-2">
+    <Tag :style="{ background: typeColors[pokeType?.pokemon_v2_type?.name || pokeType?.name] }" class="mr-2">
         <div class="flex align-items-center gap-2">
-            <img :src="'/types/' + pokeType.pokemon_v2_type.name + '.svg'" style="width: 18px" />
-            <span class="text-base">{{ pokeType.pokemon_v2_type.pokemon_v2_typenames[0].name }}</span>
+            <img :src="'/types/' + (pokeType?.pokemon_v2_type?.name || pokeType?.name) + '.svg'" style="width: 18px" />
+            <span class="text-base">{{ pokeType?.pokemon_v2_type?.pokemon_v2_typenames?.[0]?.name || pokeType?.pokemon_v2_typenames?.[0]?.name }}</span>
         </div>
     </Tag>
 </template>
