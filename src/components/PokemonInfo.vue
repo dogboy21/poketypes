@@ -75,6 +75,7 @@ const weaknesses = computed(() => {
                 <div>
                     <div class="text-2xl font-medium text-900 mb-2">
                         {{ pokemonInfo.pokemon_v2_pokemon[0].pokemon_v2_pokemonspecy.pokemon_v2_pokemonspeciesnames[0].name }}
+                        <Tag><a :href="'https://www.pokewiki.de/' + pokemonInfo.pokemon_v2_pokemon[0].pokemon_v2_pokemonspecy.pokemon_v2_pokemonspeciesnames[0].name">Wiki</a></Tag>
                     </div>
                     <div class="font-medium text-500 mb-3 text-sm">
                         <TypeTag v-for="pokeType in pokemonInfo.pokemon_v2_pokemon[0].pokemon_v2_pokemontypes" :key="'poketype' + pokeType.pokemon_v2_type.id" :pokeType="pokeType"/>
